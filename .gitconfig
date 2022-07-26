@@ -1,0 +1,6 @@
+[user]
+	name = Cole Hughes
+	email = 95713039+chughes741@users.noreply.github.com
+[core]
+	excludesFile = ~/.gitignore
+	editor = vim
