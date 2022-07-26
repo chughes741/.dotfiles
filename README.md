@@ -1,2 +1,5 @@
-# Config
-Script to install and setup config files on a new computer
+# Setup
+
+## Bootstrap on a new mac
+1. Clone repo
+>git clone https://github.com/chughes741/.dotfiles.git ~/.dotfiles
