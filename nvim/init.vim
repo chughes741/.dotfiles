@@ -32,12 +32,10 @@ set backspace=indent,eol,start
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'sickill/vim-monokai'
-Plug 'bfrg/vim-cpp-modern'
-Plug 'preservim/nerdtree'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'rhysd/vim-clang-format'
+Plug 'theprimeagen/harpoon'
 
 call plug#end()
 

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+DOTFILES=$HOME/.dotfiles
+cd "$DOTFILES"
+
+# Define the list of files to stow
+FILES=(
+    "git/.gitconfig .gitconfig"
+    "zsh/.zshrc .zshrc"
+    "zsh/.zprofile .oh-my-zsh/custom/.zprofile"
+    "zsh/aliases.zsh .oh-my-zsh/custom/aliases.zsh"
+    "nvim/init.vim .config/nvim/init.vim"
+    "tmux/.tmux.conf .tmux.conf"
+    "i3/config .config/i3/config"
+)
+
+# Check if stow is installed
+if ! command -v stow &> /dev/null; then
+    echo "Stow is not installed. Please install it before running this script."
+    exit 1
+fi
+
+# Loop through the files and stow them
+for file in "${FILES[@]}"; do
+    source_file="$DOTFILES/${file%% *}"
+    target_file="$HOME/${file##* }"
+    echo "Stowing $source_file to $target_file"
+    if ! stow --adopt -v -t "$HOME" --target="$target_file" "$source_file"; then
+        echo "Stowing failed for $source_file. Check the stow command and try again."
+        exit 1
+    fi
+done
+
+# Check if nvim is installed
+if ! command -v nvim &> /dev/null; then
+    echo "Neovim is not installed. Please install it before running this script."
+    exit 1
+fi
+
+# Set up Neovim plugins using Vim-Plug
+nvim +PlugInstall +qall
+
+# Install/update Tmux plugins using TPM
+~/.tmux/plugins/tpm/bin/install_plugins
+
+echo "Dotfiles setup completed."
+
