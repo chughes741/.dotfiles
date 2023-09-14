@@ -12,6 +12,7 @@ sudo apt install -y i3
 sudo apt install -y stow
 sudo apt install -y curl
 sudo apt install -y git
+sudo apt install -y fzf
 
 # Install Oh-My-Zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
