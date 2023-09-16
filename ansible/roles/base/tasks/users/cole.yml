@@ -1,0 +1,82 @@
+- name: users | cole | create group
+  group:
+    name: cole
+    state: present
+
+- name: users | cole | create user
+  user:
+    name: cole
+    group: cole
+    state: present
+    comment: "Cole Hughes"
+    password: "{{ lookup('env', 'USER_PASSWORD') }}"
+    shell: /bin/zsh
+
+- name: users | cole | add sudoers file
+  copy:
+    src: users/sudoers_cole
+    dest: /etc/sudoers.d/cole
+    owner: root
+    group: root
+    mode: 0440
+
+- name: users | cole | create .ssh directory
+  file:
+    path: "{{ item.dir }}"
+    state: directory
+    owner: cole
+    group: cole
+    mode: 0700
+  with_items:
+    - { dir: '/home/cole/.ssh' }
+
+- name: users | cole | add public key
+  authorized_key:
+    user: cole
+    key: "{{ item }}"
+  with_file:
+    - users/cole/ssh/cole_id_ed25519.pub
+
+- name: users | cole | create config directories
+  file:
+    path: /home/cole/{{ item.dir }}
+    state: directory
+    owner: cole
+    group: cole
+    mode: 0700
+  with_items:
+    - { dir: '.config' }
+    - { dir: '.config/i3' }
+    - { dir: '.config/i3status' }
+    - { dir: '.config/nvim' }
+    - { dir: '.tmux' }
+    - { dir: '.tmux/config' }
+    - { dir: '.tmux/plugins' }
+    - { dir: '.vim' }
+    - { dir: '.zsh' }
+
+- name: users | cole | copy tmux config (workstation version)
+  copy:
+    src: users/cole/tmux/tmux.conf
+    dest: /home/cole/.tmux.conf
+    owner: cole
+    group: cole
+    mode: 0600
+
+- name: users | cole | copy dotfiles
+  copy:
+    src: users/cole/{{ item.src }}
+    dest: /home/cole/{{ item.dest }}
+    owner: cole
+    group: cole
+    mode: 0600
+  with_items:
+    - { src: 'git/gitconfig', dest: '.gitconfig' }
+    - { src: 'git/gitignore_global', dest: '.gitignore_global' }
+    - { src: 'i3/config', dest: '.config/i3/config' }
+    - { src: 'i3status/config', dest: '.config/i3status/config' }
+    - { src: 'nvim/init.vim', dest: '.config/nvim/init.vim' }
+    - { src: 'tmux/tmux.conf', dest: '.tmux/config/tmux.conf' }
+    - { src: 'zsh/.zshrc', dest: '.zshrc' }
+    - { src: 'zsh/.zprofile', dest: '.zsh/.zprofile' }
+    - { src: 'zsh/aliases.zsh', dest: '.zsh/aliases.zsh' }

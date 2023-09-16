@@ -1,18 +1,26 @@
-# Setup
+# Configure Desktop with Ansible
 
-## Bootstrap on a new mac
-1. Clone repo into hidden directory
+## Bootstrap with Ansible
+### Install Ansible
+
+#### Arch:
+```sh
+sudo pacman -S ansible
 ```
-git clone https://github.com/chughes741/.dotfiles.git ~/.dotfiles
+#### Debian:
+```sh
+sudo apt install ansible
 ```
-2. Run setup script
+
+### Set environment variables
+```sh
+export USER_PASSWORD={password}
 ```
-bash ./setup.sh
+
+### Run ansible-pull
+```sh
+sudo ansible-pull -U https://github.com/{user}/{repository}.git
 ```
 
 ## TODO
-- Add oh my zsh to Brew
-- Add p10k to Brew
-- Add VSCode to Brew
-- Add iTerm to brew
-- System preferences for MacOS in `defaults`
+-

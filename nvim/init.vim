@@ -36,6 +36,7 @@ Plug 'sickill/vim-monokai'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'theprimeagen/harpoon'
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 

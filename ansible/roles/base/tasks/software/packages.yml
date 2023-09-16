@@ -1,0 +1,26 @@
+---
+- name: system setup | utilities | install utility packages
+  package:
+    state: latest
+    name:
+      - git
+      - zsh
+      - exa
+      - neovim
+      - tmux
+      - curl
+      - fzf
+
+- name: system setup | utilities | install vim-plug for neovim
+  become: yes
+  command: >
+    curl -fLo "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim" --create-dirs
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  args:
+    creates: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim"
+
+- name: system setup | utilities | install Tmux Plugin Manager (TPM)
+  become: yes
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"

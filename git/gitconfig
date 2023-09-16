@@ -1,0 +1,13 @@
+[user]
+    name = Cole Hughes
+    email = coltenhughes@gmail.com
+
+[core]
+    editor = vim
+    excludesfile = /home/cole/.gitignore_global
+
+[init]
+    defaultBranch = main
+
+[color]
+    ui = true

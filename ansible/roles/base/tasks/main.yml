@@ -1,0 +1,14 @@
+---
+- include_vars: "{{ ansible_distribution }}.yml"
+  tags: always
+
+- block:
+  # Configure users
+  - import_tasks: users/root.yml
+  - import_tasks: users/cole.yml
+
+  # Install software
+  - import_tasks: software/packages.yml
+
+  # Configure system
+  - import_tasks: system/clock.yml
